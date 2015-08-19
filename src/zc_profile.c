@@ -72,6 +72,9 @@ int zc_profile_inner(int flag, const char *file, const long line, const char *fm
 		break;
 	}
 
+	if(fp == NULL)
+		return -1;
+
 	/* writing file twice(time & msg) is not atomic
 	 * may cause cross
 	 * but avoid log size limit */

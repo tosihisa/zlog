@@ -513,8 +513,8 @@ static int zlog_rule_parse_path(char *path_start, /* start with a " */
 {
 	char *p, *q;
 	size_t len;
-	zlog_spec_t *a_spec;
-	zc_arraylist_t *specs;
+	zlog_spec_t *a_spec = NULL;
+	zc_arraylist_t *specs = NULL;
 
 	p = path_start + 1;
 
@@ -542,9 +542,9 @@ static int zlog_rule_parse_path(char *path_start, /* start with a " */
 	}
 
 	specs = zc_arraylist_new((zc_arraylist_del_fn)zlog_spec_del);
-	if (!path_specs) {
+	if (!specs) {
 		zc_error("zc_arraylist_new fail");
-		return -1;
+		goto err;
 	}
 
 	for (p = path_str; *p != '\0'; p = q) {
